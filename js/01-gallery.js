@@ -3,27 +3,40 @@ import { galleryItems } from './gallery-items.js';
 
 const gallery = document.querySelector('.gallery');
 
-galleryItems.map(
-    ({ preview, original, description }) => {
-        const galleryItem = document.createElement('div');
-        galleryItem.classList.add('gallery__item');
+// galleryItems.map(
+//     ({ preview, original, description }) => {
+//         const galleryItem = document.createElement('div');
+//         galleryItem.classList.add('gallery__item');
 
-        const galleryLink = document.createElement('a');
-        galleryLink.classList.add('gallery__link');
-        galleryLink.href = `${original}`;
+//         const galleryLink = document.createElement('a');
+//         galleryLink.classList.add('gallery__link');
+//         galleryLink.href = `${original}`;
           
-        const galleryImg = document.createElement('img');
-        galleryImg.classList.add('gallery__image');
-        galleryImg.src = `${preview}`;
-        galleryImg.dataset.source = `${original}`;
-        galleryImg.alt = `${description}`;
+//         const galleryImg = document.createElement('img');
+//         galleryImg.classList.add('gallery__image');
+//         galleryImg.src = `${preview}`;
+//         galleryImg.dataset.source = `${original}`;
+//         galleryImg.alt = `${description}`;
 
-        galleryLink.appendChild(galleryImg);
-        galleryItem.appendChild(galleryLink);
-        gallery.appendChild(galleryItem);
-    }
+//         galleryLink.appendChild(galleryImg);
+//         galleryItem.appendChild(galleryLink);
+//         gallery.appendChild(galleryItem);
+//     }
 
-)
+// )
+
+const galleryMarkup = galleryItems
+  .map(
+    ({ preview, original, description }) =>
+      `<div class="gallery__item">
+      <a class="gallery__link" href="${original}">
+      <img class="gallery__image" src="${preview}" data-source="${original}" alt="${description}"/>
+      </a>
+      </div>`
+  )
+  .join('');
+
+gallery.insertAdjacentHTML('afterbegin', galleryMarkup);
 
 const onClick = event => {
   event.preventDefault();
